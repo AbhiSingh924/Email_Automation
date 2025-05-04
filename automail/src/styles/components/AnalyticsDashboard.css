@@ -1,0 +1,21 @@
+.analytics-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.analytics-header {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.analytics-stats {
+  display: flex;
+  justify-content: space-around;
+}
+
+.analytics-stat {
+  text-align: center;
+  font-size: 1.2rem;
+}
