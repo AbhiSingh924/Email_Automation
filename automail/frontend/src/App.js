@@ -1,10 +1,11 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import UploadCSV from './components/UploadCSV';
 import EmailTemplateEditor from './components/EmailTemplateEditor';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
+import ChatBot from './components/ChatBot'; // Import ChatBot component
 import Papa from 'papaparse';
 import './App.css';
 
@@ -22,6 +23,7 @@ RSVP now to secure your spot!`);
   const [stats, setStats] = useState({ sent: 0, opened: 0, responses: 0, rsvps: 0 });
   const [participants, setParticipants] = useState([]);
   const [generatedEmails, setGeneratedEmails] = useState([]);
+  const [showChatBot, setShowChatBot] = useState(false); // State to toggle chatbot modal
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -29,6 +31,10 @@ RSVP now to secure your spot!`);
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  const toggleChatBot = () => {
+    setShowChatBot(!showChatBot);
   };
 
   const handleUpload = (csvData) => {
@@ -79,7 +85,7 @@ RSVP now to secure your spot!`);
           <UploadCSV onUpload={handleUpload} />
         </Col>
         <Col md={8}>
-          <EmailTemplateEditor template={template} onSave={handleTemplateSave} />
+          <EmailTemplateEditor template={template} onSave={handleTemplateSave} toggleChatBot={toggleChatBot} />
         </Col>
       </Row>
 
@@ -104,6 +110,16 @@ RSVP now to secure your spot!`);
           </Col>
         </Row>
       )}
+
+      {/* ChatBot Modal */}
+      <Modal show={showChatBot} onHide={toggleChatBot} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>ChatBot</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ChatBot />
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 };
