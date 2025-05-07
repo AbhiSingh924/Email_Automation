@@ -13,12 +13,20 @@ const EmailTemplateEditor = ({ template, onSave, toggleChatBot }) => {
 
   return (
     <div className="template-editor">
-      <h3>Email Template Editor</h3>
+      <h3 className="text-center">Email Template Editor</h3>  
       {!isEditing ? (
         <div>
-          <Button variant="warning" onClick={toggleEditing}>
-            Edit Mail Template
-          </Button>
+          <div className="d-flex justify-content-center mt-3">
+            <Button variant="warning" onClick={toggleEditing} className="me-2">
+              Edit
+            </Button>
+            <Button variant="primary" onClick={toggleChatBot} className="me-2">
+              ChatBot
+            </Button>
+            <Button variant="info" onClick={handlePreviewShow}>
+              Preview
+            </Button>
+          </div>
         </div>
       ) : (
         <div>
@@ -31,24 +39,16 @@ const EmailTemplateEditor = ({ template, onSave, toggleChatBot }) => {
               onChange={(e) => setContent(e.target.value)}
             />
           </Form.Group>
-          <div className="d-flex justify-content-start mt-3">
-            <Button variant="success" onClick={() => { onSave(content); toggleEditing(); }}>
-              Save Template
+          <div className="d-flex justify-content-center mt-3">
+            <Button variant="success" onClick={() => { onSave(content); toggleEditing(); }} className="me-2">
+              Save
             </Button>
-            <Button variant="secondary" onClick={toggleEditing} className="ms-2">
+            <Button variant="secondary" onClick={toggleEditing}>
               Cancel
             </Button>
           </div>
         </div>
       )}
-      <div className="d-flex justify-content-start mt-3">
-        <Button variant="primary" onClick={toggleChatBot}>
-          Open ChatBot
-        </Button>
-        <Button variant="info" onClick={handlePreviewShow} className="ms-2">
-          Show Preview
-        </Button>
-      </div>
 
       {/* Email Preview Modal */}
       <Modal show={showPreview} onHide={handlePreviewClose}>
